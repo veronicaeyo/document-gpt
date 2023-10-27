@@ -19,7 +19,7 @@ from langchain.vectorstores import Chroma
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.docstore.document import Document
-from langchain.chains import RetrievalQA, ConversationalRetrievalChain
+from langchain.chains import ConversationalRetrievalChain
 from langchain.retrievers.self_query.base import SelfQueryRetriever
 from langchain.chat_models import ChatOpenAI
 from langchain.llms import OpenAI
@@ -78,7 +78,7 @@ def load_db(
         db = Chroma.from_documents(
             docs, embeddings, persist_directory=persist_directory
         )
-        print(f"Folder{persist_directory} created")
+        print(f"Folder {persist_directory} created!!!")
 
     retriever = SelfQueryRetriever.from_llm(
         base_llm,
