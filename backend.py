@@ -1,12 +1,17 @@
 import os
-from typing import List, Dict
+from typing import List
 from decouple import config
 from tempfile import _TemporaryFileWrapper
 from domdf_python_tools.typing import PathLike
 
+import warnings
+
+warnings.simplefilter("ignore")
+
 import gradio as gr
 import hashlib
-from memoization import cached
+
+from result_info import ResultInfo
 
 from langchain.docstore.document import Document
 from langchain.embeddings import CohereEmbeddings
@@ -19,12 +24,6 @@ from langchain.retrievers.self_query.base import SelfQueryRetriever
 from langchain.chat_models import ChatOpenAI
 from langchain.llms import OpenAI
 from langchain.chains.query_constructor.base import AttributeInfo
-
-from result_info import ResultInfo
-
-import warnings
-
-warnings.simplefilter("ignore")
 
 
 llm_name = "gpt-3.5-turbo"
@@ -41,7 +40,6 @@ metadata_field_info = [
 document_content_description = ""
 base_llm = OpenAI(temperature=0, openai_api_key=config("OPENAI_API_KEY"))
 
-# files_dict: Dict[str, str] = {}
 
 embeddings = CohereEmbeddings(cohere_api_key=config("COHERE_API_KEY"))
 
@@ -52,12 +50,11 @@ def hash_file(file: _TemporaryFileWrapper):
     return unique_id
 
 
-# @cached(max_size=128, thread_safe=False)
 def load_db(
     file: _TemporaryFileWrapper,
     document_content_description: str,
-    k=4,
-    chain_type="stuff",
+    k: int = 4,
+    chain_type: str = "stuff",
 ):
     file_hash: str = hash_file(file)
     file_name: str = file.name
@@ -112,7 +109,6 @@ def add_text(history: List[list[str]], query: str):
     return history, gr.update(value="", interactive=False)
 
 
-# @cached(max_size=128, thread_safe=False)
 def get_result(
     file: _TemporaryFileWrapper,
     history: List[list[str]],

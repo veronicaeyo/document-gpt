@@ -1,13 +1,14 @@
-import gradio as gr
 import re
 import os
 import tempfile as _TemporaryFileWrapper
+
+import gradio as gr
 from backend import add_text, get_combined_result
+
 
 def get_file_name(file: _TemporaryFileWrapper):
     file_name = os.path.basename(file.name).split(".")[0]
     return re.sub(r"[^\w\s]", " ", file_name)
-
 
 
 with gr.Blocks() as demo:
@@ -38,26 +39,33 @@ with gr.Blocks() as demo:
             clear = gr.ClearButton([text, chatbot, doc_description], variant="primary")
 
         with gr.Row():
-             with gr.Accordion("Additional Parameters", open=False):
-                gr.Markdown("Look at me...")
-                k_slider = gr.Slider(label="Number of documents in similarity search", minimum=2, maximum=10, step=1, interactive=True, value=4, )
+            with gr.Accordion("Additional Parameters", open=False):
+                k_slider = gr.Slider(
+                    label="Number of documents in similarity search",
+                    minimum=2,
+                    maximum=10,
+                    step=1,
+                    interactive=True,
+                    value=4,
+                )
         with gr.Row():
             docs_text = gr.TextArea(label="Similarity Search Results")
 
     file.upload(fn=get_file_name, inputs=file, outputs=[doc_description])
+    
     file.clear(
         lambda _, __, ___: ([], "", ""),
         inputs=[chatbot, text, doc_description],
         outputs=[chatbot, text, doc_description],
     )
+    
     response = (
         gr.on(
             triggers=[btn.click, text.submit],
             fn=add_text,
             inputs=[chatbot, text],
             outputs=[chatbot, text],
-        )
-        .then(
+        ).then(
             fn=get_combined_result,
             inputs=[file, chatbot, doc_description, k_slider],
             outputs=[chatbot, docs_text],
