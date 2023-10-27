@@ -7,3 +7,4 @@ cohere==4.27
 openai==0.27.8
 lark==1.1.7
 domdf_python_tools==3.7.0
+pypdf==3.16.0
