@@ -12,7 +12,7 @@ def get_file_name(file: _TemporaryFileWrapper):
 
 
 with gr.Blocks() as demo:
-    gr.Markdown("<h1><center>PDF QUERY </center></h1>")
+    gr.Markdown("<h1><center> DOCUMENT GPT </center></h1>")
     chatbot = gr.Chatbot(
         height=500,
         show_copy_button=True,
