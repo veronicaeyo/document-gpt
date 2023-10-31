@@ -1,4 +1,5 @@
 import os
+import hashlib
 from typing import List
 from decouple import config
 from tempfile import _TemporaryFileWrapper
@@ -7,9 +8,6 @@ from domdf_python_tools.typing import PathLike
 import warnings
 
 warnings.simplefilter("ignore")
-
-import gradio as gr
-import hashlib
 
 from result_info import ResultInfo
 
@@ -26,10 +24,10 @@ from langchain.llms import OpenAI
 from langchain.chains.query_constructor.base import AttributeInfo
 
 
-llm_name = "gpt-3.5-turbo"
+llm_name: str = "gpt-3.5-turbo"
 
 
-metadata_field_info = [
+metadata_field_info: List[AttributeInfo] = [
     AttributeInfo(
         name="page",
         description="The page from the document",
@@ -37,7 +35,7 @@ metadata_field_info = [
     ),
 ]
 
-document_content_description = ""
+document_content_description: str = ""
 base_llm = OpenAI(temperature=0, openai_api_key=config("OPENAI_API_KEY"))
 
 
@@ -72,7 +70,6 @@ def load_db(
             chunk_size=1000, chunk_overlap=150
         )
         docs = text_splitter.split_documents(documents)
-        # define embedding
 
         # create vector database from data
         db = Chroma.from_documents(
@@ -104,11 +101,6 @@ def load_db(
     return qa
 
 
-def add_text(history: List[list[str]], query: str):
-    history += [(query, "")]
-    return history, gr.update(value="", interactive=False)
-
-
 def get_result(
     file: _TemporaryFileWrapper,
     history: List[list[str]],
@@ -132,8 +124,6 @@ def get_combined_result(
         history[-1][1] += character
 
     return history, fmt_search(result["source_documents"])
-
-
 
 
 def fmt_search(docs: List[Document]) -> str:

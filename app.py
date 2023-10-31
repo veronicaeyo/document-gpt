@@ -1,14 +1,20 @@
 import re
 import os
 import tempfile as _TemporaryFileWrapper
+from typing import List
 
 import gradio as gr
-from backend import add_text, get_combined_result
+from backend import get_combined_result
 
 
 def get_file_name(file: _TemporaryFileWrapper):
     file_name = os.path.basename(file.name).split(".")[0]
     return re.sub(r"[^\w\s]", " ", file_name)
+
+
+def add_text(history: List[list[str]], query: str):
+    history += [(query, "")]
+    return history, gr.update(value="", interactive=False)
 
 
 with gr.Blocks() as demo:
@@ -52,25 +58,22 @@ with gr.Blocks() as demo:
             docs_text = gr.TextArea(label="Similarity Search Results")
 
     file.upload(fn=get_file_name, inputs=file, outputs=[doc_description])
-    
+
     file.clear(
         lambda _, __, ___: ([], "", ""),
         inputs=[chatbot, text, doc_description],
         outputs=[chatbot, text, doc_description],
     )
-    
-    response = (
-        gr.on(
-            triggers=[btn.click, text.submit],
-            fn=add_text,
-            inputs=[chatbot, text],
-            outputs=[chatbot, text],
-        ).then(
-            fn=get_combined_result,
-            inputs=[file, chatbot, doc_description, k_slider],
-            outputs=[chatbot, docs_text],
-        )
-        # .then(fn=get_response, inputs=[file, chatbot, doc_description], outputs=chatbot)
+
+    response = gr.on(
+        triggers=[btn.click, text.submit],
+        fn=add_text,
+        inputs=[chatbot, text],
+        outputs=[chatbot, text],
+    ).then(
+        fn=get_combined_result,
+        inputs=[file, chatbot, doc_description, k_slider],
+        outputs=[chatbot, docs_text],
     )
 
     response.then(lambda: gr.update(interactive=True), None, [text], queue=False)
