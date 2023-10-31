@@ -1,6 +1,6 @@
 # Document GPT
 
-LLm chatbot based on your PDF document built with Langchain and Gradio
+LLM chatbot based on your PDF document built with Langchain and Gradio
 
 ## Requirements
 
@@ -10,7 +10,7 @@ LLm chatbot based on your PDF document built with Langchain and Gradio
 ## Instructions
 
 1. Clone this repo by running `git clone https://github.com/veronicaeyo/document-gpt.git`
-2. Change your directory to document-gpt by running: `cd datafest-llm-workshop`
+2. Change your directory to document-gpt by running: `cd document-gpt`
 3. Copy the `.env.sample` to `.env` and replace the `OPENAI_API_KEY` in .env with your own API Key
 4. Create and activate a virtual environment using [pyenv](https://akrabat.com/creating-virtual-environments-with-pyenv/) or [conda](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 5. Install dependencies using `pip install -r requiremnts.txt`
