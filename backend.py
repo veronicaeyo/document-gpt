@@ -1,7 +1,7 @@
 import os
 import hashlib
-from typing import List
-from decouple import config
+from typing import List, Optional
+from dotenv import load_dotenv
 from tempfile import _TemporaryFileWrapper
 from domdf_python_tools.typing import PathLike
 
@@ -9,10 +9,12 @@ import warnings
 
 warnings.simplefilter("ignore")
 
+load_dotenv()
+
 from result_info import ResultInfo
 
 from langchain.docstore.document import Document
-from langchain.embeddings import CohereEmbeddings
+from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -24,7 +26,16 @@ from langchain.llms import OpenAI
 from langchain.chains.query_constructor.base import AttributeInfo
 
 
+api_keys: List[str] = ["OPENAI_API_KEY"]
+
+assert any(
+    os.getenv(api_key, None) for api_key in api_keys
+), "Add 'OPENAI_API_KEY' or 'COHERE_API_KEY' in your environment variables"
+
 llm_name: str = "gpt-3.5-turbo"
+base_llm = OpenAI(temperature=0)
+embeddings = OpenAIEmbeddings()
+chat_llm = ChatOpenAI(model_name=llm_name, temperature=0)
 
 
 metadata_field_info: List[AttributeInfo] = [
@@ -36,10 +47,6 @@ metadata_field_info: List[AttributeInfo] = [
 ]
 
 document_content_description: str = ""
-base_llm = OpenAI(temperature=0, openai_api_key=config("OPENAI_API_KEY"))
-
-
-embeddings = CohereEmbeddings(cohere_api_key=config("COHERE_API_KEY"))
 
 
 def hash_file(file: _TemporaryFileWrapper):
@@ -51,8 +58,8 @@ def hash_file(file: _TemporaryFileWrapper):
 def load_db(
     file: _TemporaryFileWrapper,
     document_content_description: str,
-    k: int = 4,
-    chain_type: str = "stuff",
+    k: Optional[int] = 4,
+    chain_type: Optional[str] = "stuff",
 ):
     file_hash: str = hash_file(file)
     file_name: str = file.name
@@ -88,9 +95,7 @@ def load_db(
     )
     # create a chatbot chain. Memory is managed externally.
     qa = ConversationalRetrievalChain.from_llm(
-        llm=ChatOpenAI(
-            openai_api_key=config("OPENAI_API_KEY"), model_name=llm_name, temperature=0
-        ),
+        llm=chat_llm,
         chain_type=chain_type,
         retriever=retriever,
         return_source_documents=True,

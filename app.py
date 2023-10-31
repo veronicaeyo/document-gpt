@@ -60,9 +60,9 @@ with gr.Blocks() as demo:
     file.upload(fn=get_file_name, inputs=file, outputs=[doc_description])
 
     file.clear(
-        lambda _, __, ___: ([], "", ""),
-        inputs=[chatbot, text, doc_description],
-        outputs=[chatbot, text, doc_description],
+        lambda _, __, ___, ____: ([],"", "", ""),
+        inputs=[chatbot, text, doc_description, docs_text],
+        outputs=[chatbot, text, doc_description, docs_text],
     )
 
     response = gr.on(
