@@ -134,25 +134,6 @@ def get_combined_result(
     return history, fmt_search(result["source_documents"])
 
 
-# def get_response(
-#     file: _TemporaryFileWrapper,
-#     history: List[list[str]],
-#     document_content_description: str,
-# ):
-#     result = get_result(file, history, document_content_description)
-
-#     for character in result["answer"]:
-#         history[-1][1] += character
-#     yield history
-
-# def get_source_document(
-#     file: _TemporaryFileWrapper,
-#     history: List[list[str]],
-#     document_content_description: str,
-# )-> str:
-#     result = get_result(file, history, document_content_description)
-
-#     return fmt_search(result["source_documents"])
 
 
 def fmt_search(docs: List[Document]) -> str:
