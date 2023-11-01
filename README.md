@@ -1,4 +1,15 @@
-# Document GPT
+---
+title: Document Gpt
+emoji: 🏢
+colorFrom: red
+colorTo: yellow
+sdk: gradio
+sdk_version: 3.50.2
+app_file: app.py
+pinned: false
+---
+
+## Document GPT
 
 LLM chatbot based on your PDF document built with Langchain and Gradio
 
@@ -20,18 +31,3 @@ LLM chatbot based on your PDF document built with Langchain and Gradio
 ## Demo
 
 ![demo](images/demo.gif)
-
-## HuggingFace Hub Configuration
-
----
-
-title: Document Gpt
-emoji: 🏢
-colorFrom: red
-colorTo: yellow
-sdk: gradio
-sdk_version: 3.50.2
-app_file: app.py
-pinned: false
-
----
