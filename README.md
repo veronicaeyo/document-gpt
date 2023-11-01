@@ -15,6 +15,7 @@ LLM chatbot based on your PDF document built with Langchain and Gradio
 4. Create and activate a virtual environment using [pyenv](https://akrabat.com/creating-virtual-environments-with-pyenv/) or [conda](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html)
 5. Install dependencies using `pip install -r requiremnts.txt`
 6. Run `gradio app.py` to start the application, app should be running on `http://127.0.0.1:7860`
+7. To deploy the application on huggingface hub, run `gradio deploy`
 
 ## Demo
 
