@@ -29,7 +29,7 @@ with gr.Blocks() as demo:
         with gr.Row():
             with gr.Column(scale=1):
                 file = gr.File(
-                    type="file",
+                    type="filepath",
                     label="Upload a PDF",
                     file_types=[".pdf"],
                     height=80,

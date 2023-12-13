@@ -1,0 +1,100 @@
+{
+    "os": "Linux-6.5.0-14-generic-x86_64-with-glibc2.38",
+    "python": "3.11.4",
+    "heartbeatAt": "2023-12-12T17:25:58.297569",
+    "startedAt": "2023-12-12T17:25:55.223633",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "/home/alli/Documents/GitHub/document-gpt/app.py",
+    "codePathLocal": "app.py",
+    "codePath": "app.py",
+    "git": {
+        "remote": "git@hf.co:spaces/sage-group/document-gpt",
+        "commit": "968f5d393419bad2dfb7db6de8be2fe4f2f62adf"
+    },
+    "email": "allisonabiodun@gmail.com",
+    "root": "/home/alli/Documents/GitHub/document-gpt",
+    "host": "alli-pc",
+    "username": "alli",
+    "executable": "/home/alli/miniconda3/envs/openai/bin/python3.11",
+    "cpu_count": 6,
+    "cpu_count_logical": 12,
+    "cpu_freq": {
+        "current": 2517.4907500000004,
+        "min": 800.0,
+        "max": 4600.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2599.999,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 2599.997,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 2599.989,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 2600.003,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 2599.999,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 2600.0,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 2600.006,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 2600.0,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 2599.995,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 2600.001,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 2599.997,
+            "min": 800.0,
+            "max": 4600.0
+        },
+        {
+            "current": 2600.0,
+            "min": 800.0,
+            "max": 4600.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 456.8854446411133,
+            "used": 319.69626235961914
+        }
+    },
+    "memory": {
+        "total": 15.394519805908203
+    }
+}

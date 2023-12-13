@@ -1,10 +1,11 @@
-gradio==3.50.2
-langchain==0.0.312
+gradio==4.7.1
+langchain==0.0.321
 memoization==0.4.0
-chromadb==0.4.3
+chromadb==0.4.15
 openai==0.27.8
 lark==1.1.7
 domdf_python_tools==3.7.0
 pypdf==3.16.0
 python-dotenv==1.0.0
 tiktoken==0.5.1
+wandb==0.16.1

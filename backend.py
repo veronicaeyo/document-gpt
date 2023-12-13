@@ -13,12 +13,11 @@ load_dotenv()
 
 from result_info import ResultInfo
 
-from langchain.docstore.document import Document
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.docstore.document import Document
+from langchain.schema import Document
 from langchain.chains import ConversationalRetrievalChain
 from langchain.retrievers.self_query.base import SelfQueryRetriever
 from langchain.chat_models import ChatOpenAI
@@ -32,7 +31,7 @@ assert any(
     os.getenv(api_key, None) for api_key in api_keys
 ), "Add 'OPENAI_API_KEY' or 'COHERE_API_KEY' in your environment variables"
 
-llm_name: str = "gpt-3.5-turbo"
+llm_name: str = "gpt-3.5-turbo-0301"
 base_llm = OpenAI(temperature=0)
 embeddings = OpenAIEmbeddings()
 chat_llm = ChatOpenAI(model_name=llm_name, temperature=0)
@@ -100,10 +99,11 @@ def load_db(
         retriever=retriever,
         return_source_documents=True,
         return_generated_question=True,
-        get_chat_history=lambda h: h,
+        get_chat_history=lambda h: h
     )
 
     return qa
+
 
 
 def get_result(
