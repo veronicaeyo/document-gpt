@@ -13,15 +13,13 @@ load_dotenv()
 
 from result_info import ResultInfo
 
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import Chroma
-from langchain.document_loaders import PyPDFLoader
+from langchain_community.vectorstores import Chroma
+from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema import Document
 from langchain.chains import ConversationalRetrievalChain
 from langchain.retrievers.self_query.base import SelfQueryRetriever
-from langchain.chat_models import ChatOpenAI
-from langchain.llms import OpenAI
+from langchain_openai import OpenAI, ChatOpenAI, OpenAIEmbeddings
 from langchain.chains.query_constructor.base import AttributeInfo
 
 
